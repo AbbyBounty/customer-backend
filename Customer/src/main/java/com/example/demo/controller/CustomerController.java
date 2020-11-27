@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ import com.example.demo.model.Mechanic;
 import com.example.demo.model.Offer;
 import com.example.demo.model.Order;
 import com.example.demo.model.Service_Taken_Vendor;
+import com.example.demo.model.Vendor;
 import com.example.demo.repository.FeedbackRepository;
 import com.example.demo.repository.MechanicRepository;
 import com.example.demo.repository.OfferRepository;
@@ -32,8 +34,8 @@ import com.example.demo.repository.VendorRepository;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/vendor")
-public class VendorController {
+@RequestMapping("/customer")
+public class CustomerController {
 
 	@Autowired
 	private ServiceRepository serviceRepository;
@@ -43,9 +45,13 @@ public class VendorController {
 
 	@Autowired
 	private OfferRepository offerRepository;
+	
+	@Autowired
+	private VendorRepository vendorRepository;
 
 //	@Autowired
 //	private OrderRepository orderRepository;
+	
 	
 	
 	@Autowired
@@ -164,7 +170,19 @@ public class VendorController {
 
 	
 	// -----------------------------------------------------------------------------------------
-		// ---------------------------- AKASH
+		// ---------------------------- SHOPS
 		// ----------------------------------------------
-		// -
+		// -----------------------------------------------------------------------------------------
+
+	@GetMapping("/shop")
+	public ResponseEntity<List<String>> getshop() {
+		
+		List<Vendor>shops=vendorRepository.findAll();
+		List<String> shopName=new ArrayList<String>();
+		for (Vendor vendor : shops) {
+			shopName.add(vendor.getVen_shop_name());
+		}
+		return new ResponseEntity<>(shopName, HttpStatus.OK);
+	}
+	    
 }
