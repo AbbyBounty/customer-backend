@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpStatus;
@@ -56,14 +57,26 @@ public class CustomerController {
 	
 	@Autowired
 	private FeedbackRepository feedbackRepository;
+	
+	
 
 	// -----------------------------------------------------------------------------------------
 	// ---------------------------- SERVICES
 	// ----------------------------------------------
 	// -----------------------------------------------------------------------------------------
-	@GetMapping("/services")
-	public ResponseEntity<List<Service_Taken_Vendor>> getServices() {
-		return new ResponseEntity<>(serviceRepository.findAll(), HttpStatus.OK);
+	@GetMapping("/shop/{id}")
+	public ResponseEntity<List<Service_Taken_Vendor>> getService(@PathVariable int id) {
+	
+	
+	
+	 List<Service_Taken_Vendor> services = 	vendorRepository.getService();
+	 
+	
+
+	
+	
+			
+		return new ResponseEntity<>(services, HttpStatus.OK);
 	}
 
 	@PostMapping("/services/create/")
