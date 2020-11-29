@@ -45,11 +45,6 @@ private List<Order> u_order = new ArrayList<>();				//Previous Orders Placed By 
 
 
 
-	public User() {
-		
-		
-		System.out.println("In The Default Constructor of User "+this.u_id);
-	}
 
 
 	public User(String u_first_name, String u_last_name,String u_email,
@@ -124,20 +119,20 @@ private List<Order> u_order = new ArrayList<>();				//Previous Orders Placed By 
 		this.u_order = u_order;
 	}
 
-//
-////	public User(int u_id, String u_first_name, String u_last_name, String u_email, String u_mobile, String u_address,
-//			String u_password, List<Vehicle> u_vehicles, List<Order> u_order) {
-//		super();
-//		this.u_id = u_id;
-//		this.u_first_name = u_first_name;
-//		this.u_last_name = u_last_name;
-//		this.u_email = u_email;
-//		this.u_mobile = u_mobile;
-//		this.u_address = u_address;
-//		this.u_password = u_password;
-//		this.u_vehicles = u_vehicles;
-//		this.u_order = u_order;
-//	}
+
+	public User(int u_id, String u_first_name, String u_last_name, String u_email, String u_mobile, String u_address,
+			String u_password, List<Vehicle> u_vehicles, List<Order> u_order) {
+		super();
+		this.u_id = u_id;
+		this.u_first_name = u_first_name;
+		this.u_last_name = u_last_name;
+		this.u_email = u_email;
+		this.u_mobile = u_mobile;
+		this.u_address = u_address;
+		this.u_password = u_password;
+		this.u_vehicles = u_vehicles;
+		this.u_order = u_order;
+	}
 
 
 	@Id
@@ -214,6 +209,11 @@ private List<Order> u_order = new ArrayList<>();				//Previous Orders Placed By 
 	}
 	
 	
+	public User() {
+		super();
+	}
+
+
 	@OneToMany(mappedBy="o_user",cascade=CascadeType.ALL/*,fetch=FetchType.EAGER*/) 
 	@JsonManagedReference
 	public List<Order> getU_order() {

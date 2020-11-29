@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name="offer")
 public class Offer {
+	
 		int ofr_id;						//auto generated 	--> @Id
 		String ofr_name;				//Offer Name 		--> [Magical Monday,Wonderful Wednesday] 
 		String ofr_code;				//Offer Code 		--> [GET50,FREE,FIRSTUSER] --> length(8) in Database; unique
@@ -17,12 +18,38 @@ public class Offer {
 		Date ofr_validity;				//End Date Of Validity
 		Vendor ofr_vendor;		//To Know Which Vendor Added The Offer 
 		
+		//@PrimaryKeyJoinColumn
+		Order ofr_order;
+		
+		
+		
 		
 		
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		public int getOfr_id() {
 			return ofr_id;
+		}
+		public Offer() {
+			super();
+		}
+	
+		public Offer(int ofr_id, String ofr_name, String ofr_code, int ofr_discount, Date ofr_validity,
+				Vendor ofr_vendor, Order ofr_order) {
+			super();
+			this.ofr_id = ofr_id;
+			this.ofr_name = ofr_name;
+			this.ofr_code = ofr_code;
+			this.ofr_discount = ofr_discount;
+			this.ofr_validity = ofr_validity;
+			this.ofr_vendor = ofr_vendor;
+			this.ofr_order = ofr_order;
+		}
+		public Order getOfr_order() {
+			return ofr_order;
+		}
+		public void setOfr_order(Order ofr_order) {
+			this.ofr_order = ofr_order;
 		}
 		public void setOfr_id(int ofr_id) {
 			this.ofr_id = ofr_id;
@@ -73,6 +100,12 @@ public class Offer {
 		}
 		public void setOfr_vendor(Vendor ofr_vendor) {
 			this.ofr_vendor = ofr_vendor;
+		}
+		@Override
+		public String toString() {
+			return "Offer [ofr_id=" + ofr_id + ", ofr_name=" + ofr_name + ", ofr_code=" + ofr_code + ", ofr_discount="
+					+ ofr_discount + ", ofr_validity=" + ofr_validity + ", ofr_vendor=" + ofr_vendor + ", ofr_order="
+					+ ofr_order + "]";
 		}
 		
 /*		@Override

@@ -55,6 +55,23 @@ public class Order {
 	
 		
 		
+		
+		
+		public Order(int o_id, String o_date, String o_start_time, String o_vehicle_reg_no, User o_user,
+				Vehicle o_vehicle, Vendor o_vendor, Offer o_offer, Service_Taken_Vendor o_s_total_fk) {
+			super();
+			this.o_id = o_id;
+			this.o_date = o_date;
+			this.o_start_time = o_start_time;
+			this.o_vehicle_reg_no = o_vehicle_reg_no;
+			this.o_user = o_user;
+			this.o_vehicle = o_vehicle;
+			this.o_vendor = o_vendor;
+			this.o_offer = o_offer;
+			this.o_s_total_fk = o_s_total_fk;
+		}
+
+
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		public int getO_id() {
@@ -120,6 +137,10 @@ public class Order {
 		public void setO_vendor(Vendor o_vendor) {
 			this.o_vendor = o_vendor;
 		}
+		
+		
+
+		
 	
 		
 		
@@ -142,7 +163,7 @@ public class Order {
 		
 		
 		@OneToOne(cascade=CascadeType.ALL)
-		@JoinColumn(name="ofr_id")	
+		@JoinColumn(name="ofr_order")	
 		public Offer getO_offer() {
 			return o_offer;
 		}
@@ -154,7 +175,8 @@ public class Order {
 		@Override
 		public String toString() {
 			return "Order [o_id=" + o_id + ", o_date=" + o_date + ", o_start_time=" + o_start_time
-					+ ", o_vehicle_reg_no=" + o_vehicle_reg_no +  "]";
+					+ ", o_vehicle_reg_no=" + o_vehicle_reg_no + ", o_user=" + o_user + ", o_vehicle=" + o_vehicle
+					+ ", o_vendor=" + o_vendor + ", o_offer=" + o_offer + ", o_s_total_fk=" + o_s_total_fk + "]";
 		}
 		
 		
