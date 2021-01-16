@@ -23,6 +23,7 @@ public class Order {
 		Vendor o_vendor;				//Who is Vendor --> (Sai-Services) --> (ven_id)
 										//(It Is A Foreign Key Of Order and Vendor)
 		Offer o_offer;					//To Know Which offer Is Applied On The Current Order
+		//one To one 
 		Service_Taken_Vendor o_s_total_fk;					//To Get The Total Amount Of Order Placed
 		//List<Service_Taken_Vendor> o_st_service_fk;	//Will get to know about hoe many services has been taken by user
 		

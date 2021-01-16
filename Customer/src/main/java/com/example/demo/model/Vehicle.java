@@ -14,7 +14,7 @@ public class Vehicle {
 	private	String v_company_name;			//Vehicle Name		--> [YAMAHA,HERO,HONDA] 
 	private	String v_model;					//Vehicle Model 	-->	[FZ-SFI,SZ,ACTIVA,UNICORN]
 	private String v_regNo;					//Vehicle Reg Number
-	private User v_user;
+	private User v_user;       //user Id  
 	
 	
 	

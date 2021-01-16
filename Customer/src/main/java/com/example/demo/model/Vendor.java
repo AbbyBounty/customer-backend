@@ -25,10 +25,18 @@ public class Vendor {
 			String ven_mobile;							//Enter By Vendor	unique
 			String ven_address;							//Enter By Vendor	
 			String ven_password;						//Enter By Vendor	
+			
+			//oneToMany
 			List<Offer> ven_offer = new ArrayList<>();	//Enter By Vendor (May or May not have it)  
+			
+			//oneToMany
 			List<Mechanic> ven_mechanic = new ArrayList<>(); //Enter By Vendor (At least One or many) not null
 			//Enter By Vendor (At least One or many) not null
+			
+			//oneToMany
 			List<Order> ven_order = new ArrayList<>();	//Previous Orders Received by Vendors	
+			
+			//oneToMany
 			List<Service_Taken_Vendor> ven_services = new ArrayList<>(); // Services Taken from Master Table and Provided to Users 
 			
 			

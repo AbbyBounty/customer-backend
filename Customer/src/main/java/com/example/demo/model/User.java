@@ -7,10 +7,6 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
-
-
-
 @Entity
 @Table(name="user")
 public class User {
@@ -36,11 +32,12 @@ private	String u_address;				//Enter By User
 //@NotEmpty(message="Password is Required")
 //@Range(min=3,max=30,message="Minimum 3 Letters")
 private	String u_password;				//Enter By User	
+
 //OneToMany Relationship
-
 private List<Vehicle> u_vehicles = new ArrayList<>(); //Enter By User	
+														//(Select Using Drop-Down List)-->(Take data from Vehicle Entity)
 
-														//(Select Using Drop-Down List)-->(Take data from Vehicle Entity)	
+//OneToMany Relationship
 private List<Order> u_order = new ArrayList<>();				//Previous Orders Placed By User
 
 

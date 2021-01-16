@@ -18,24 +18,6 @@ public class Feedback {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private	int f_id;		
 	private String description;	
-//	
-//	@ManyToOne
-//	@JoinColumn(name="o_id")
-//	@JsonBackReference
-//	private Order	o_order;
-//	
-//	
-//	@ManyToOne
-//	@JoinColumn(name="u_id")
-//	@JsonBackReference
-//	private User	u_user;		
-//	
-//	
-//	@ManyToOne
-//	@JoinColumn(name="ven_id")
-//	@JsonBackReference
-//	private Vendor	ven_vendor;
-
 
 	public int getF_id() {
 		return f_id;
