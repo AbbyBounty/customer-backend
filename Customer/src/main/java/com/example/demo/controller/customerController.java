@@ -24,6 +24,7 @@ import com.example.demo.model.Mechanic;
 import com.example.demo.model.Offer;
 import com.example.demo.model.Order;
 import com.example.demo.model.Service_Taken_Vendor;
+import com.example.demo.model.User;
 import com.example.demo.model.Vehicle;
 import com.example.demo.model.Vendor;
 import com.example.demo.repository.FeedbackRepository;
@@ -31,10 +32,11 @@ import com.example.demo.repository.MechanicRepository;
 import com.example.demo.repository.OfferRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ServiceRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.VehicleRepository;
 import com.example.demo.repository.VendorRepository;
 
-@CrossOrigin(origins ="http://localhost:4200")
+@CrossOrigin(origins ="http://localhost:4200/*")
 @RestController
 @RequestMapping("/user")
 public class customerController {
@@ -56,32 +58,54 @@ public class customerController {
 
 	@Autowired
 	private FeedbackRepository feedbackRepository;
+	
+	
+	@Autowired
+	private VendorRepository vendorRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+		// -----------------------------------------------------------------------------------------
+		// ---------------------------- Auth
+		// ----------------------------------------------
+		// -----------------------------------------------------------------------------------------
+	
+	
+	@PostMapping("/auth")
+	public ResponseEntity<User> authenticate(@RequestBody User user) {
+		List<User> result = userRepository.findByU_emailAndU_password(user.getU_email(), user.getU_password());
+		return new ResponseEntity<>(result.isEmpty()? null: result.get(0), HttpStatus.OK);
+	}
+	
+	 
+	 
 
 	// -----------------------------------------------------------------------------------------
 	// ---------------------------- Vehicle
 	// ----------------------------------------------
 	// -----------------------------------------------------------------------------------------
 
-	
-	@PostMapping("/Vehicle/create")
+	 
+	@PostMapping("/vehicle/create")
 	public ResponseEntity<Vehicle> addVehicle(@RequestBody Vehicle vehicle) {
 		return new ResponseEntity<>(vehicleRepository.save(vehicle), HttpStatus.OK);
 	}
 	
-	@GetMapping("/Vehicle/{id}")
+	@GetMapping("/vehicle/{id}")
 	public ResponseEntity<Object> getVehicle(@PathVariable int id) {
 		return new ResponseEntity<Object>(vehicleRepository.findById(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("/Vehicle")
+	@GetMapping("/vehicle")
 	public ResponseEntity<List<Vehicle>> getVehicles() {
 		return new ResponseEntity<>(vehicleRepository.findAll(), HttpStatus.OK);
 	}
 	
-	@PutMapping("/Vehicle/{id}")
-	public ResponseEntity<Vehicle> updateVehicle(@PathVariable int id, @RequestBody Vehicle vehicle) {
-		Vehicle vehicle1 = vehicleRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Vehicle not exist with id :" + id));
+	@PutMapping("/vehicle")
+	public ResponseEntity<Vehicle> updateVehicle( @RequestBody Vehicle vehicle) {
+		Vehicle vehicle1 = vehicleRepository.findById(vehicle.getV_id())
+				.orElseThrow(() -> new ResourceNotFoundException("Vehicle not exist with id :" + vehicle.getV_id()));
 		vehicle1.setV_id(vehicle.getV_id());
 		vehicle1.setV_company_name(vehicle.getV_company_name());
 		vehicle1.setV_model(vehicle.getV_model());
@@ -100,6 +124,18 @@ public class customerController {
 		 
 		return new ResponseEntity<>( HttpStatus.OK);
 	}
+	
+	
+	
+	// -----------------------------------------------------------------------------------------
+		// ---------------------------- SHOPS
+		// ----------------------------------------------
+		// -----------------------------------------------------------------------------------------
+		@GetMapping("/shops")
+		public ResponseEntity<List<Vendor>> getShops() { 
+			return new ResponseEntity<>(vendorRepository.findAll(), HttpStatus.OK);
+		}
+	
 	
 	// -----------------------------------------------------------------------------------------
 	// ---------------------------- SERVICES
