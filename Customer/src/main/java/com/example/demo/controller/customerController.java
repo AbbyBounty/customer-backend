@@ -97,6 +97,12 @@ public class customerController {
 		return new ResponseEntity<Object>(vehicleRepository.findById(id), HttpStatus.OK);
 	}
 	
+	@GetMapping("/vehiclesByUserid/{id}")
+	public ResponseEntity<Object> getVehicleByUserId(@PathVariable int id) {
+		List<Vehicle> vehicles=vehicleRepository.findVehicleByuserId(id);
+		return new ResponseEntity<>(vehicles.isEmpty()? null: vehicles, HttpStatus.OK);
+	}
+	
 	@GetMapping("/vehicle")
 	public ResponseEntity<List<Vehicle>> getVehicles() {
 		return new ResponseEntity<>(vehicleRepository.findAll(), HttpStatus.OK);
