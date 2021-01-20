@@ -122,7 +122,7 @@ public class customerController {
 
 	}
 	
-	@DeleteMapping("/Vehicle/{id}")
+	@DeleteMapping("/vehicle/{id}")
 	public ResponseEntity<Vehicle> deleteVehicle(@PathVariable int id) {
 		Vehicle vehicle1 = vehicleRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Vehicle not exist with id :" + id));
@@ -130,7 +130,7 @@ public class customerController {
 		 
 		return new ResponseEntity<>( HttpStatus.OK);
 	}
-	
+	 
 	
 	
 	// -----------------------------------------------------------------------------------------
