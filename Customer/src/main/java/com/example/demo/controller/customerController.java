@@ -1,15 +1,25 @@
 package com.example.demo.controller;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.SessionFactory;
+=======
+import java.util.List;
+import java.util.Optional;
+
+>>>>>>> tuka
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.DeleteMapping;
+>>>>>>> tuka
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,18 +35,34 @@ import com.example.demo.model.Mechanic;
 import com.example.demo.model.Offer;
 import com.example.demo.model.Order;
 import com.example.demo.model.Service_Taken_Vendor;
+<<<<<<< HEAD
+=======
+import com.example.demo.model.User;
+import com.example.demo.model.Vehicle;
+>>>>>>> tuka
 import com.example.demo.model.Vendor;
 import com.example.demo.repository.FeedbackRepository;
 import com.example.demo.repository.MechanicRepository;
 import com.example.demo.repository.OfferRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ServiceRepository;
+<<<<<<< HEAD
 import com.example.demo.repository.VendorRepository;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
+=======
+import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.VehicleRepository;
+import com.example.demo.repository.VendorRepository;
+
+@CrossOrigin(origins ="http://localhost:4200/*")
+@RestController
+@RequestMapping("/user")
+public class customerController {
+>>>>>>> tuka
 
 	@Autowired
 	private ServiceRepository serviceRepository;
@@ -46,6 +72,7 @@ public class CustomerController {
 
 	@Autowired
 	private OfferRepository offerRepository;
+<<<<<<< HEAD
 	
 	@Autowired
 	private VendorRepository vendorRepository;
@@ -127,6 +154,114 @@ public class CustomerController {
 
 		return new ResponseEntity<>(updatedMechanic, HttpStatus.OK);
 
+=======
+
+	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private VehicleRepository vehicleRepository;
+
+	@Autowired
+	private FeedbackRepository feedbackRepository;
+	
+	
+	@Autowired
+	private VendorRepository vendorRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+		// -----------------------------------------------------------------------------------------
+		// ---------------------------- Auth
+		// ----------------------------------------------
+		// -----------------------------------------------------------------------------------------
+	
+	
+	@PostMapping("/auth")
+	public ResponseEntity<User> authenticate(@RequestBody User user) {
+		List<User> result = userRepository.findByU_emailAndU_password(user.getU_email(), user.getU_password());
+		return new ResponseEntity<>(result.isEmpty()? null: result.get(0), HttpStatus.OK);
+	}
+	
+	 
+	 
+
+	// -----------------------------------------------------------------------------------------
+	// ---------------------------- Vehicle
+	// ----------------------------------------------
+	// -----------------------------------------------------------------------------------------
+
+	 
+	@PostMapping("/vehicle/create")
+	public ResponseEntity<Vehicle> addVehicle(@RequestBody Vehicle vehicle) {
+		return new ResponseEntity<>(vehicleRepository.save(vehicle), HttpStatus.OK);
+	}
+	
+	@GetMapping("/vehicle/{id}")
+	public ResponseEntity<Object> getVehicle(@PathVariable int id) {
+		return new ResponseEntity<Object>(vehicleRepository.findById(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/vehiclesByUserid/{id}")
+	public ResponseEntity<Object> getVehicleByUserId(@PathVariable int id) {
+		List<Vehicle> vehicles=vehicleRepository.findVehicleByuserId(id);
+		return new ResponseEntity<>(vehicles.isEmpty()? null: vehicles, HttpStatus.OK);
+	}
+	
+	@GetMapping("/vehicle")
+	public ResponseEntity<List<Vehicle>> getVehicles() {
+		return new ResponseEntity<>(vehicleRepository.findAll(), HttpStatus.OK);
+	}
+	
+	@PutMapping("/vehicle")
+	public ResponseEntity<Vehicle> updateVehicle( @RequestBody Vehicle vehicle) {
+		Vehicle vehicle1 = vehicleRepository.findById(vehicle.getV_id())
+				.orElseThrow(() -> new ResourceNotFoundException("Vehicle not exist with id :" + vehicle.getV_id()));
+		vehicle1.setV_id(vehicle.getV_id());
+		vehicle1.setV_company_name(vehicle.getV_company_name());
+		vehicle1.setV_model(vehicle.getV_model());
+		vehicle1.setV_regNo(vehicle.getV_regNo());
+		Vehicle updateVehicle = vehicleRepository.save(vehicle1);
+
+		return new ResponseEntity<>(updateVehicle, HttpStatus.OK);
+
+	}
+	
+	@DeleteMapping("/vehicle/{id}")
+	public ResponseEntity<Vehicle> deleteVehicle(@PathVariable int id) {
+		Vehicle vehicle1 = vehicleRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Vehicle not exist with id :" + id));
+		 vehicleRepository.delete(vehicle1);
+		 
+		return new ResponseEntity<>( HttpStatus.OK);
+	}
+	 
+	
+	
+	// -----------------------------------------------------------------------------------------
+		// ---------------------------- SHOPS
+		// ----------------------------------------------
+		// -----------------------------------------------------------------------------------------
+		@GetMapping("/shops")
+		public ResponseEntity<List<Vendor>> getShops() { 
+			return new ResponseEntity<>(vendorRepository.findAll(), HttpStatus.OK);
+		}
+	
+	
+	// -----------------------------------------------------------------------------------------
+	// ---------------------------- SERVICES
+	// ----------------------------------------------
+	// -----------------------------------------------------------------------------------------
+	@GetMapping("/services")
+	public ResponseEntity<List<Service_Taken_Vendor>> getServices() {
+		return new ResponseEntity<>(serviceRepository.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/services/{id}")
+	public ResponseEntity<Object> getServices(@PathVariable int id) {
+		return new ResponseEntity<Object>(feedbackRepository.findById(id), HttpStatus.OK);
+>>>>>>> tuka
 	}
 
 	// -----------------------------------------------------------------------------------------
@@ -139,6 +274,7 @@ public class CustomerController {
 		return new ResponseEntity<>(offerRepository.findAll(), HttpStatus.OK);
 	}
 
+<<<<<<< HEAD
 	@PostMapping("/offer/create")
 	public ResponseEntity<Offer> addOffer(@RequestBody Offer offer) {
 
@@ -158,6 +294,11 @@ public class CustomerController {
 
 		return new ResponseEntity<>(updatedOffer, HttpStatus.OK);
 
+=======
+	@GetMapping("/offer/{id}")
+	public ResponseEntity<Object> getOffer(@PathVariable int id) {
+		return new ResponseEntity<Object>(offerRepository.findById(id), HttpStatus.OK);
+>>>>>>> tuka
 	}
 
 	// -----------------------------------------------------------------------------------------
@@ -165,16 +306,24 @@ public class CustomerController {
 	// ----------------------------------------------
 	// -----------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 //	@GetMapping("/orders")
 //	public ResponseEntity<List<Order>> getOrder() {
 //		return new ResponseEntity<>(orderRepository.findAll(), HttpStatus.OK);
 //	}
+=======
+	@GetMapping("/order")
+	public ResponseEntity<List<Order>> getOrder() {
+		return new ResponseEntity<>(orderRepository.findAll(), HttpStatus.OK);
+	}
+>>>>>>> tuka
 
 	// -----------------------------------------------------------------------------------------
 	// ---------------------------- FEEDBACK
 	// ----------------------------------------------
 	// -----------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 	@GetMapping("/feedback/{id}")
 	public ResponseEntity<Object> getFeedbackById(@PathVariable int id) {
 		
@@ -198,4 +347,22 @@ public class CustomerController {
 		return new ResponseEntity<>(shopName, HttpStatus.OK);
 	}
 	    
+=======
+	@GetMapping("/feedback")
+	public ResponseEntity<List<Feedback>> getFeedback() {
+
+		return new ResponseEntity<>(feedbackRepository.findAll(), HttpStatus.OK);
+	}
+
+	@GetMapping("/feedback/{id}")
+	public ResponseEntity<Object> getFeedback(@PathVariable int id) {
+		return new ResponseEntity<Object>(feedbackRepository.findById(id), HttpStatus.OK);
+	}
+
+	@PostMapping("/feedback/create")
+	public ResponseEntity<Feedback> giveFeedback(@RequestBody Feedback feedback) {
+
+		return new ResponseEntity<>(feedbackRepository.save(feedback), HttpStatus.OK);
+	}
+>>>>>>> tuka
 }
