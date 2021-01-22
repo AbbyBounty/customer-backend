@@ -78,6 +78,38 @@ public class customerController {
 		return new ResponseEntity<>(result.isEmpty()? null: result.get(0), HttpStatus.OK);
 	}
 	
+
+	@PostMapping("/register")
+	public ResponseEntity<User> register(@RequestBody User user) {
+		return new ResponseEntity<>(userRepository.save(user), HttpStatus.OK);
+	}
+
+	// -----------------------------------------------------------------------------------------
+	// ---------------------------- USER
+	// ----------------------------------------------
+	// -----------------------------------------------------------------------------------------
+
+	@GetMapping("/profile/{id}")
+	public ResponseEntity<Object> getUser(@PathVariable int id) {
+		return new ResponseEntity<Object>(userRepository.findById(id), HttpStatus.OK);
+	}
+
+	@PutMapping("/profile")
+	public ResponseEntity<User> updateUser( @RequestBody User user) {
+		User user1 = userRepository.findById(user.getU_id())
+				.orElseThrow(() -> new ResourceNotFoundException("User not exist with id :" + user.getU_id()));
+	user1.setU_first_name(user.getU_first_name());
+	user1.setU_email(user.getU_email());
+	user1.setU_last_name(user.getU_last_name());
+	user1.setU_address(user.getU_address());
+	user1.setU_mobile(user.getU_mobile());
+
+	User updateUser = userRepository.save(user1);
+
+		return new ResponseEntity<>(updateUser, HttpStatus.OK);
+
+	}
+
 	 
 	 
 
